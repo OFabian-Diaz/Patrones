@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Disaster Security</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="inicio" class="pantalla">
+    <div class="top-bar">
+      <div id="logo">DISASTER</div>
+      <div class="top-buttons">
+        <button onclick="mostrarFormulario('login')">Iniciar Sesión</button>
+        <button onclick="mostrarFormulario('registro')">Registrar</button>
+      </div>
+    </div>
+
+    <div class="main-title">
+      <h1>DISASTER SECURITY</h1>
+      <p>APP PARA MEJORAR LA SEGURIDAD EN CASOS DE EMERGENCIAS Y RIESGOS</p>
+    </div>
+
+    <div class="desastres">
+      <img src="https://cdn.pixabay.com/photo/2016/01/06/22/29/flood-1125953_1280.jpg" alt="Inundación" />
+      <img src="https://cdn.pixabay.com/photo/2017/08/30/05/00/hurricane-harvey-2692440_1280.jpg" alt="Huracán" />
+      <img src="https://cdn.pixabay.com/photo/2012/11/28/10/37/fire-67627_1280.jpg" alt="Incendio" />
+    </div>
+
+    <div class="descripcion">
+      <p>
+        Nuestra app ayuda a reportar desastres naturales rápidamente. Con solo llenar un formulario puedes alertar a las autoridades
+        sobre incendios, inundaciones, terremotos y otros eventos. ¡Actúa rápido y ayuda a salvar vidas!
+      </p>
+    </div>
+
+    <div class="calificaciones">
+      <h3>Calificaciones de Usuarios</h3>
+      <p>⭐️⭐️⭐️⭐️⭐️ "Muy útil en mi ciudad, reporté una inundación y llegaron rápido." - María G.</p>
+      <p>⭐️⭐️⭐️⭐️ "Sencilla de usar y cumple con su propósito." - Andrés R.</p>
+    </div>
+  </div>
+
+  <div id="login" class="pantalla" style="display: none;">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="login-nombre" placeholder="Nombre completo" required />
+    <input type="text" id="login-cedula" placeholder="Cédula" maxlength="10" required />
+    <input type="password" id="login-password" placeholder="Contraseña" required />
+    <button onclick="iniciarSesion()">Entrar</button>
+  </div>
+
+  <div id="registro" class="pantalla" style="display: none;">
+    <h2>Registro</h2>
+    <input type="text" id="nombre" placeholder="Nombres" required />
+    <input type="text" id="apellidos" placeholder="Apellidos" required />
+    <input type="text" id="direccion" placeholder="Dirección" required />
+    <input type="text" id="celular" placeholder="Celular (10 dígitos)" maxlength="10" required />
+    <input type="text" id="cedula" placeholder="Cédula (10 dígitos)" maxlength="10" required />
+    <input type="password" id="password" placeholder="Contraseña" required />
+    <label>Foto de cédula:</label>
+    <input type="file" id="fotoCedula" />
+    <button onclick="registrar()">Registrar</button>
+  </div>
+
+  <div id="formulario" class="pantalla" style="display: none;">
+    <div class="top-bar">
+      <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+      <div class="center-title">DISASTER SECURITY</div>
+    </div>
+
+    <h2>Formulario de Emergencia</h2>
+    <label>Tipo de emergencia:</label>
+    <select>
+      <option>Incendio</option>
+      <option>Inundación</option>
+      <option>Terremoto</option>
+      <option>Otro</option>
+    </select>
+
+    <label>Subir evidencia:</label>
+    <input type="file" />
+
+    <label>Describe la emergencia:</label>
+    <textarea></textarea><br>
+
+    <button onclick="enviarReporte()">Entregar Reporte</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
