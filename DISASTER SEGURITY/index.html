@@ -4,89 +4,173 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Disaster Security</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div id="inicio" class="pantalla">
-    <div class="top-bar">
-      <div id="logo">DISASTER</div>
-      <div class="top-buttons">
-        <button onclick="mostrarFormulario('login')">Iniciar Sesión</button>
-        <button onclick="mostrarFormulario('registro')">Registrar</button>
-      </div>
-    </div>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <button class="cerrar-sidebar" onclick="toggleSidebar()">
+    <img src="exit.png" alt="Cerrar" class="exit.png" />
+  </button>
+  <button onclick="mostrarVista('formulario')">Formulario</button>
+  <button onclick="mostrarVista('perfil'); cargarPerfil();">Perfil</button>
+  <button onclick="mostrarVista('mapa'); inicializarMapa();">Mapa</button>
+  <button onclick="mostrarVista('notificaciones')">Notificaciones</button>
+</div>
 
-    <div class="main-title">
-      <h1>DISASTER SECURITY</h1>
-      <p>APP PARA MEJORAR LA SEGURIDAD EN CASOS DE EMERGENCIAS Y RIESGOS</p>
-    </div>
-
-    <div class="desastres">
-      <img src="https://cdn.pixabay.com/photo/2016/01/06/22/29/flood-1125953_1280.jpg" alt="Inundación" />
-      <img src="https://cdn.pixabay.com/photo/2017/08/30/05/00/hurricane-harvey-2692440_1280.jpg" alt="Huracán" />
-      <img src="https://cdn.pixabay.com/photo/2012/11/28/10/37/fire-67627_1280.jpg" alt="Incendio" />
-    </div>
-
-    <div class="descripcion">
-      <p>
-        Nuestra app ayuda a reportar desastres naturales rápidamente. Con solo llenar un formulario puedes alertar a las autoridades
-        sobre incendios, inundaciones, terremotos y otros eventos. ¡Actúa rápido y ayuda a salvar vidas!
-      </p>
-    </div>
-
-    <div class="calificaciones">
-      <h3>Calificaciones de Usuarios</h3>
-      <p>⭐️⭐️⭐️⭐️⭐️ "Muy útil en mi ciudad, reporté una inundación y llegaron rápido." - María G.</p>
-      <p>⭐️⭐️⭐️⭐️ "Sencilla de usar y cumple con su propósito." - Andrés R.</p>
+<!-- INICIO -->
+<div id="inicio" class="pantalla">
+  <div class="top-bar">
+    <div id="logo">DISASTER</div>
+    <div class="top-buttons">
+      <button onclick="mostrarVista('login')">Iniciar Sesión</button>
+      <button onclick="mostrarVista('registro')">Registrar</button>
     </div>
   </div>
 
-  <div id="login" class="pantalla" style="display: none;">
-    <h2>Iniciar Sesión</h2>
-    <input type="text" id="login-nombre" placeholder="Nombre completo" required />
-    <input type="text" id="login-cedula" placeholder="Cédula" maxlength="10" required />
-    <input type="password" id="login-password" placeholder="Contraseña" required />
-    <button onclick="iniciarSesion()">Entrar</button>
+  <div class="main-title">
+    <h1>DISASTER SECURITY</h1>
+    <p>APP PARA MEJORAR LA SEGURIDAD EN CASOS DE EMERGENCIAS Y RIESGOS</p>
   </div>
 
-  <div id="registro" class="pantalla" style="display: none;">
-    <h2>Registro</h2>
-    <input type="text" id="nombre" placeholder="Nombres" required />
-    <input type="text" id="apellidos" placeholder="Apellidos" required />
-    <input type="text" id="direccion" placeholder="Dirección" required />
-    <input type="text" id="celular" placeholder="Celular (10 dígitos)" maxlength="10" required />
-    <input type="text" id="cedula" placeholder="Cédula (10 dígitos)" maxlength="10" required />
-    <input type="password" id="password" placeholder="Contraseña" required />
-    <label>Foto de cédula:</label>
-    <input type="file" id="fotoCedula" />
-    <button onclick="registrar()">Registrar</button>
+  <div class="desastres">
+    <img src="https://cdn.pixabay.com/photo/2016/01/06/22/29/flood-1125953_1280.jpg" alt="Inundación" />
+    <img src="https://cdn.pixabay.com/photo/2017/08/30/05/00/hurricane-harvey-2692440_1280.jpg" alt="Huracán" />
+    <img src="https://cdn.pixabay.com/photo/2012/11/28/10/37/fire-67627_1280.jpg" alt="Incendio" />
   </div>
 
-  <div id="formulario" class="pantalla" style="display: none;">
-    <div class="top-bar">
-      <div class="menu-icon" onclick="toggleSidebar()">☰</div>
-      <div class="center-title">DISASTER SECURITY</div>
+  <div class="descripcion">
+    <p>Nuestra app ayuda a reportar desastres naturales rápidamente. ¡Actúa rápido y ayuda a salvar vidas!</p>
+  </div>
+
+  <div class="calificaciones">
+    <h3>Calificaciones de Usuarios</h3>
+    <p>⭐️⭐️⭐️⭐️⭐️ "Muy útil en mi ciudad, reporté una inundación y llegaron rápido." - María G.</p>
+    <p>⭐️⭐️⭐️⭐️ "Sencilla de usar y cumple con su propósito." - Andrés R.</p>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="pantalla" style="display: none;">
+  <h2>Iniciar Sesión</h2>
+  <input type="text" id="login-nombre" placeholder="Nombre completo" required />
+  <input type="text" id="login-cedula" placeholder="Cédula" maxlength="10" required />
+  <input type="password" id="login-password" placeholder="Contraseña" required />
+  <button onclick="iniciarSesion()">Entrar</button>
+  <button onclick="mostrarVista('inicio')">Volver</button>
+</div>
+
+<!-- REGISTRO -->
+<div id="registro" class="pantalla" style="display: none;">
+  <h2>Registro</h2>
+  <input type="text" id="nombre" placeholder="Nombres" required />
+  <input type="text" id="apellidos" placeholder="Apellidos" required />
+  <input type="text" id="direccion" placeholder="Dirección" required />
+  <input type="text" id="celular" placeholder="Celular (10 dígitos)" maxlength="10" required />
+  <input type="text" id="cedula" placeholder="Cédula (10 dígitos)" maxlength="10" required />
+  <input type="password" id="password" placeholder="Contraseña" required />
+  <label>Foto de cédula:</label>
+  <input type="file" id="fotoCedula" />
+  <button onclick="registrar()">Registrar</button>
+  <button onclick="mostrarVista('inicio')">Volver</button>
+</div>
+
+<!-- FORMULARIO -->
+<div id="formulario" class="pantalla" style="display: none;">
+  <div class="top-bar">
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+    <div class="center-title">DISASTER SECURITY</div>
+  </div>
+
+  <h2>Formulario de Emergencia</h2>
+  <label>Tipo de emergencia:</label>
+  <select>
+    <option>Incendio</option>
+    <option>Inundación</option>
+    <option>Terremoto</option>
+    <option>Otro</option>
+  </select>
+
+  <label>Subir evidencia:</label>
+  <input type="file" />
+  <label>Describe la emergencia:</label>
+  <textarea></textarea><br>
+  <button onclick="enviarReporte()">Entregar Reporte</button>
+</div>
+
+<!-- PERFIL -->
+<div id="perfil" class="pantalla" style="display: none;">
+  <div class="top-bar">
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+    <div class="center-title">DISASTER SECURITY</div>
+  </div>
+
+  <h2>Mi Perfil</h2>
+  <img id="foto-perfil" class="foto-perfil" src="img/default-user.png" alt="Foto de perfil">
+  <p><strong>Nombre:</strong> <span id="nombrePerfil"></span></p>
+  <p><strong>Apellidos:</strong> <span id="apellidosPerfil"></span></p>
+  <p><strong>Cédula:</strong> <span id="cedulaPerfil"></span></p>
+  <p><strong>Dirección:</strong> <span id="direccionPerfil"></span></p>
+  <p><strong>Celular:</strong> <span id="celularPerfil"></span></p>
+
+  <form id="form-foto">
+    <label>Cambiar foto de perfil:</label>
+    <input type="file" name="foto" required>
+    <button type="submit">Subir Foto</button>
+  </form>
+
+  <br>
+  <button onclick="cerrarSesion()">Cerrar sesión</button>
+</div>
+
+<!-- MAPA -->
+<div id="mapa" class="pantalla" style="display: none;">
+  <div class="top-bar">
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+    <div class="center-title">DISASTER SECURITY</div>
+  </div>
+
+  <h2>Mapa de Emergencias</h2>
+  <div id="mapaEmergencias" style="height: 500px; width: 100%; border-radius: 10px;"></div>
+  <div id="controlesMapa" style="margin-top: 20px; padding: 10px; background: #f9fdf6; border-radius: 10px;">
+    <h3>Selecciona tipo de emergencia:</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 10px;">
+      <div><span style="display:inline-block;width:20px;height:20px;background:red;border-radius:50%;margin-right:5px;"></span>Incendio</div>
+      <div><span style="display:inline-block;width:20px;height:20px;background:blue;border-radius:50%;margin-right:5px;"></span>Inundación</div>
+      <div><span style="display:inline-block;width:20px;height:20px;background:brown;border-radius:50%;margin-right:5px;"></span>Terremoto</div>
+      <div><span style="display:inline-block;width:20px;height:20px;background:pink;border-radius:50%;margin-right:5px;"></span>Otro</div>
     </div>
 
-    <h2>Formulario de Emergencia</h2>
-    <label>Tipo de emergencia:</label>
-    <select>
-      <option>Incendio</option>
-      <option>Inundación</option>
-      <option>Terremoto</option>
-      <option>Otro</option>
+    <label for="tipoEmergencia"><strong>Tipo de emergencia:</strong></label>
+    <select id="tipoEmergencia" style="margin-left: 10px;">
+      <option value="red">Incendio</option>
+      <option value="blue">Inundación</option>
+      <option value="brown">Terremoto</option>
+      <option value="pink">Otro</option>
     </select>
 
-    <label>Subir evidencia:</label>
-    <input type="file" />
+    <br><br>
+    <button onclick="enviarAlertaDesdeMapa()" style="padding: 10px 20px; background: #4a8f5a; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      Enviar Alerta
+    </button>
+  </div>
+</div>
 
-    <label>Describe la emergencia:</label>
-    <textarea></textarea><br>
-
-    <button onclick="enviarReporte()">Entregar Reporte</button>
+<!-- NOTIFICACIONES -->
+<div id="notificaciones" class="pantalla" style="display: none;">
+  <div class="top-bar">
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+    <div class="center-title">DISASTER SECURITY</div>
   </div>
 
-  <script src="script.js"></script>
+  <h2>Notificaciones (pendiente)</h2>
+  <p>Aquí se mostrarán las notificaciones importantes.</p>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
